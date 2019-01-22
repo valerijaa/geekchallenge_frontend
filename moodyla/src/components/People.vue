@@ -8,9 +8,14 @@
 
 
 <script>
+
 export default {
     name: "People",
-    props: ["people"]
+    computed: {
+        people() {
+            return this.$store.getters.getPeople;
+        }
+    },
 }
 </script>
 
