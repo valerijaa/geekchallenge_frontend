@@ -6,18 +6,15 @@
         <div class="post" v-bind:key="post.id" v-for="post in timeline">
           <div class="info">
           <div class="prof"> 
-            <div class="pic"></div>
+            <img class="pic" v-bind:src="post.photo"/>
              <div class="user">
-               <h1>{{post.personName}}</h1>
-                 <span>ello1994</span>
+               <h1>{{post.display_name}}</h1>
+               <span>{{post.username}}</span>
           </div>
   
           </div>
           <img class="icon" src="http://www.stickpng.com/assets/images/580b57fcd9996e24bc43c53e.png">
           </div>
-
-      
-
 
           <p>{{post.text}}</p>
        
@@ -38,7 +35,7 @@
               <h3> 7% happy</h3>
             </div>
           </div>
-        <span class="date"> 22 Jan, 2019</span>
+        <span class="date">{{post.created_at}}</span>
         </div>  
       </div>
     </div>
@@ -56,6 +53,10 @@ export default {
             return this.$store.getters.getDashboardTimeline;
         }
     },
+
+  created() {
+    this.$store.dispatch('loadTimeline');
+  },
   methods: {
   }
 }

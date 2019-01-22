@@ -13,9 +13,12 @@ export default {
     name: "People",
     computed: {
         people() {
-            return this.$store.getters.getPeople;
+            return this.$store.getters.getPeopleSortedByName;
         }
     },
+    created() {
+        this.$store.dispatch('loadPeople');
+    }
 }
 </script>
 

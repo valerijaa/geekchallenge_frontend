@@ -27,15 +27,10 @@
 
 <script>
 import People from '../People';
-// import axios from 'axios';
 export default {
     name: "SideBar",
     components: {
         People
-    },
-    created() {
-        //    axios.get('http://localhost:3000/people')
-        //    .then(response => this.people = response.data);
     }
 }
 </script>

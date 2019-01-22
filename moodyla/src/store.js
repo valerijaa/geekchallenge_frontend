@@ -1,52 +1,25 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import axios from 'axios';
 
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
     // our state, our data
     state: {
-        people: [ 
-            {
-                id: 10,
-                name: 'Elgarssss',
-                social: 'twitter'
-            },
-            {
-                id: 11,
-                name: 'Valerijaaa',
-                social: 'twitter'
-            }
-        ],
-        timeline: [
-            {
-                id: 1,
-                text: 'This is a tweet of the person. It can be long, it can be short. but so far there is just a random text.',
-                date: '22/01/2019 13:30',
-                socialNetwork: 'twitter',
-                personName: 'Elgars Logins'
-            },
-            {
-                id: 2,
-                text: 'This is another tweet of the person. It can be long, it can be short. but so far there is just a random text.',
-                date: '22/01/2019 10:30',
-                socialNetwork: 'twitter',
-                personName: 'John Logins'
-            },
-
-            {
-                id: 3,
-                text: 'This is another tweet of the person. It can be long, it can be short. but so far there is just a random text.',
-                date: '22/01/2019 10:30',
-                socialNetwork: 'twitter',
-                personName: 'John Logins'
-            }
-        ]
+        people: [],
+        timeline: []
     },
+
     // for reading or returning or filtering data
     getters: {
         getPeople(state){
             return state.people;
+        },
+        getPeopleSortedByName(state){
+            return state.people.sort(function(a, b) {
+                return a.name.localeCompare(b.name);
+             });
         },
         getDashboardTimeline(state){
             return state.timeline;
@@ -55,14 +28,36 @@ export const store = new Vuex.Store({
     // for changing/updating/creating data
     mutations: {
         addPerson(state, person){
-            // TODO: POST TO our backend API
             state.people.push(person);
+        },
+        setPeople(state, people){
+            state.people = people;
+        },
+        setTimeline(state,timeline) {
+            state.timeline = timeline;
         }
-            // axios.post('http://localhost:3000/addperson', {
-      //   name: newPerson.name,
-      //   username: newPerson.username,
-      //   socialMedia: newPerson.socialMedia
-      // })
-      // .then(res => this.people= [...this.people, res.data]);
+    },
+    actions: {
+        loadPeople(context){
+            axios.get('http://localhost:3000/people')
+                .then(response => {
+                    context.commit('setPeople', response.data);
+                });
+        },
+        loadTimeline(context){
+            axios.get('http://localhost:3000/posts')
+                .then(response => {
+                    context.commit('setTimeline', response.data);
+                });
+        },
+        addPerson(context, newPerson){
+            axios.post('http://localhost:3000/addperson', {
+                name: newPerson.name,
+                username: newPerson.username,
+                socialMedia: newPerson.socialMedia
+            }).then(response => {
+                context.commit('addPerson', response.data);
+            });
+        }
     }
 });

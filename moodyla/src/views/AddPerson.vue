@@ -50,13 +50,12 @@ export default {
         AddPerson(e) {
             e.preventDefault();
             const newPerson = {
-                id: 99,
                 name: this.name,
                 username: this.username,
                 socialMedia: this.socialNetwork
             }
 
-            this.$store.commit('addPerson', newPerson);
+            this.$store.dispatch('addPerson', newPerson);
 
             this.name = '';
             this.username = '';
@@ -65,10 +64,6 @@ export default {
     }
 }
 </script>
-
-
-
-
 
 <style scoped>
     .container {
