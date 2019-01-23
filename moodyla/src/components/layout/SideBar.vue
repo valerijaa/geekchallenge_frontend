@@ -75,6 +75,29 @@ export default {
     .people {
         margin: 5% 7%;
         text-align: left;
+        overflow-y: scroll;
+    }
+
+    /* style for scrollbar */
+    ::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        -webkit-border-radius: 10px;
+        border-radius: 10px;
+        background: #dcdcdc; 
+        
+    }
+    ::-webkit-scrollbar-thumb:window-inactive {
+        background: #dcdcdc; 
     }
 
     .people h1 {
