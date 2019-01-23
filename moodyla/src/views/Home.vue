@@ -1,5 +1,36 @@
 <template>
-  <div id="app">
+  <div id="app"><div class="wrap">
+    <div class="person-container">
+  <div class="full-profile"> 
+            <img class="image">
+             <div class="name">
+               <h1>Elgars Logins</h1>
+               <span>ello1994</span>
+          </div>
+
+  
+    </div>
+
+          <div class="accounts"> 
+
+             <div class="socialmedia"> 
+              <img src="http://assets.stickpng.com/thumbs/5a2fe3efcc45e43754640848.png">
+              <h3> ello__</h3>
+            </div>
+             <div class="socialmedia"> 
+              <img src="https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2-free/128/social-instagram-new-circle-512.png">
+              <h3> ello__</h3>
+            </div>
+             <div class="socialmedia"> 
+              <img src="https://cdn4.iconfinder.com/data/icons/social-media-icons-the-circle-set/48/facebook_circle-512.png">
+              <h3> ello__</h3>
+            </div>
+
+
+          </div>
+    
+    </div>
+    </div>
     <div class="container">
       <div class="timeline"> 
 
@@ -76,8 +107,6 @@
                    <img src="https://d3krtd5frfbrx5.cloudfront.net/site/screenshots/english/queryapp_linechart.png">
 
                 </div>
-
-
             </div>
           </div>
         </div>
@@ -111,8 +140,6 @@ export default {
   }
 }
 
-
-
 </script>
 
 <style>
@@ -121,7 +148,63 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.person-container {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  flex-direction: column;
+  width: 45%;
+  border: 1px solid white;
+  border-radius: 13px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);   
+}
 
+.accounts {
+  display: inline-flex;
+  margin-bottom: 20px;
+  width: 87%;
+}
+
+.accounts .socialmedia {
+  display: flex;
+  align-items: center;
+      padding-left: 5%;
+    padding-right: 5%;
+  
+}
+.accounts img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  flex:1;
+}
+
+
+.full-profile {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.full-profile .image {
+   width: 100px;
+   height: 100px;
+   background-color: rebeccapurple;
+   border-radius: 50%;
+}
+
+.full-profile .name {
+  padding: 50px;
+  
+}
 .timeline {
   display:flex;
   justify-content: center;
