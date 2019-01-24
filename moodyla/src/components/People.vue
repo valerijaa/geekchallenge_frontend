@@ -1,7 +1,9 @@
 <template>
     <div>
-        <div v-bind:key="all.id" v-for="all in people"> 
-            <h3>{{all.name}}</h3>
+        <div v-bind:key="person._id" v-for="person in people"> 
+            <h3>
+                <router-link class="button" :to="{ name: 'person', params: { id: person._id }}">{{person.name}}</router-link>
+            </h3>
         </div>
     </div>
 </template>

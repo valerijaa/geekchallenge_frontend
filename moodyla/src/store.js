@@ -21,7 +21,10 @@ export const store = new Vuex.Store({
                 return a.name.localeCompare(b.name);
              });
         },
-        getDashboardTimeline(state){
+        getPerson: (state) => (id) => {
+            return state.people.find(person => person._id === id);
+        },
+        getTimeline(state) {
             return state.timeline;
         }
     },
@@ -44,8 +47,16 @@ export const store = new Vuex.Store({
                     context.commit('setPeople', response.data);
                 });
         },
-        loadTimeline(context){
-            axios.get('http://localhost:3000/posts')
+        loadTimeline(context, personId){
+            var postsApiEndpoint = '';
+            if (personId){
+                postsApiEndpoint = 'http://localhost:3000/person-posts?id='+personId;
+            }
+            else{
+                postsApiEndpoint = 'http://localhost:3000/posts';
+            }
+
+            axios.get(postsApiEndpoint)
                 .then(response => {
                     context.commit('setTimeline', response.data);
                 });
