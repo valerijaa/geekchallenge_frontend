@@ -25,5 +25,13 @@ export default {
 </script>
 
 <style scoped>
+h3 a {
+    text-decoration: none;
+    color: grey;
+    font-weight: 500;
+}
 
+h3 a:hover {
+    color: black;
+}
 </style>

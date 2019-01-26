@@ -2,12 +2,26 @@
 
 <div>
     <div class="container">
-    <form @submit="AddPerson">      
+    <form @submit.prevent="submit">      
         <h1>Add new person</h1>
-        <label for="name">Name</label>
-        <input type="text" class="name" v-model="name" name="name">
+        <p class="typo__p" v-if="submitStatus === 'OK'" style="color: green">Thanks for your submission!</p>
+        <p class="typo__p" v-if="submitStatus === 'ERROR'" style="color: red">Please fill the form correctly.</p>
+        <p class="typo__p" v-if="submitStatus === 'PENDING'">Sending...</p>
+       
+        <div class="form-group" :class="{'form-group--error': $v.name.$error }"> 
+            <label class="form__label" for="name">Name</label>
+            <input type="text" class="name form__input" v-model.trim="$v.name.$model"/>
+        </div>
 
-        <label for="media">Choose social media</label>
+         <div class="error" v-if="!$v.name.required && submitStatus" style="color: red">Name is required</div>
+         <div class="error" v-if="!$v.name.minLength && submitStatus" style="color: red">Name must have at least {{$v.name.$params.minLength.min}} letters.</div>
+
+            
+
+
+      
+        <div class="form-group" :class="{'form-group--error': $v.name.$error }"> 
+        <label class="form__label" for="media">Choose social media</label>
         <div class="social">
            <label class="twitter">
               <input type="radio" v-model="socialNetwork" value="twitter" >
@@ -22,10 +36,22 @@
                 <img v-bind:class="{ active: socialNetwork === 'facebook' }" src="https://cdn4.iconfinder.com/data/icons/social-media-icons-the-circle-set/48/facebook_circle-512.png">
         </label>
         </div>
-        <label for="username">Username</label>
-            <input type="text" class="username" v-model="username" name="username">
+        </div>
 
-        <input type="submit" value="Add" class="btn">
+         <div class="error" v-if="!$v.username.required && submitStatus" style="color: red">Ths field is required</div>
+
+        <div class="form-group" :class="{'form-group--error': $v.username.$error }"> 
+        <label class="form__label" for="username">Username</label>
+            <input type="text"  class="username form__input" v-model.trim="$v.username.$model"/>
+        </div>
+
+          <div class="error" v-if="!$v.username.required && submitStatus" style="color: red">Username is required</div>
+         <div class="error" v-if="!$v.username.minLength && submitStatus" style="color: red">Username must have at least {{$v.username.$params.minLength.min}} letters.</div>
+
+        <input type="submit" :disabled="submitStatus === 'PENDING'" value="Add" class="btn">
+
+
+
     </form>
     </div>
 
@@ -37,31 +63,70 @@
 
 
 <script>
+import { required, minLength } from 'vuelidate/lib/validators'
+
 export default {
     name: "AddPerson",
     data() {
         return {
             name: '',
             socialNetwork: '',
-            username: ''
+            username: '',
+            submitStatus: null
+        }
+    },
+    validations: {
+        name: {
+            required,
+            minLength: minLength(5)
+        },
+        socialNetwork: {
+            required
+        },
+        username: {
+            required,
+            minLength: minLength(5)
         }
     },
     methods: {
-        AddPerson(e) {
+        submit(e) {
             e.preventDefault();
-            const newPerson = {
-                name: this.name,
-                username: this.username,
-                socialMedia: this.socialNetwork
+            /*   eslint-disable no-console */
+            console.log('submit!');
+            /* eslint-enable no-console */
+
+            this.$v.$touch();
+            if(this.$v.$invalid){
+                this.submitStatus = 'ERROR';
+            } 
+            else {
+                this.submitStatus = 'PENDING';
+
+                const newPerson = {
+                    name: this.name,
+                    username: this.username,
+                    socialMedia: this.socialNetwork
+                }
+
+                this.$store.dispatch('addPerson', newPerson)
+                    .then(response => {
+                        /*   eslint-disable no-console */
+                        console.log(response._id);
+                        /* eslint-enable no-console */
+                        this.name = '';
+                        this.username = '';
+                        this.socialNetwork = '';
+                        this.submitStatus = 'OK';
+
+                        this.$router.push({ name: 'person', params: { id: response._id} })
+                    }, function() {
+                    this.submitStatus = 'ERROR';
+                });
             }
-
-            this.$store.dispatch('addPerson', newPerson);
-
-            this.name = '';
-            this.username = '';
-            this.socialNetwork = '';
         }
     }
+
+
 }
 </script>
 
