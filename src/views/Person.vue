@@ -57,4 +57,61 @@ export default {
 </script>
 
 <style scoped>
+.wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.person-container {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  flex-direction: column;
+  width: 45%;
+  border: 1px solid white;
+  border-radius: 13px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.1);   
+}
+
+.accounts {
+  display: inline-flex;
+  margin-bottom: 20px;
+  width: 87%;
+}
+
+.accounts .socialmedia {
+  display: flex;
+  align-items: center;
+      padding-left: 5%;
+    padding-right: 5%;
+  
+}
+.accounts img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+  flex:1;
+}
+
+
+.full-profile {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.full-profile .image {
+   width: 100px;
+   height: 100px;
+   background-color: rebeccapurple;
+   border-radius: 50%;
+}
+
+.full-profile .name {
+  padding: 50px;
+  
+}
 </style>
