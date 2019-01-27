@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="wrapper"> 
-      <div class="aside">
+      <div class="aside" v-if="isLoggedIn()">
         <SideBar />
       </div>
 
@@ -16,10 +16,17 @@
 
 <script>
 import SideBar from './components/layout/SideBar'
+import { userService } from './services/UserService';
+
 export default {
   name: "app",
   components: {
     SideBar
+  },
+  computed: {
+    isLoggedIn(){
+      return userService.isLoggedIn;
+    }
   }
 }
 </script>

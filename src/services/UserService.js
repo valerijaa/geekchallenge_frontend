@@ -2,8 +2,25 @@ import axios from 'axios';
 
 export const userService = {
     login,
-    register
+    register,
+    logout,
+    isLoggedIn
 };
+
+function isLoggedIn(){
+    if (localStorage.getItem('jwt') === null) {
+         return false;
+    }
+
+    return true;
+}
+
+function logout(){
+    if (isLoggedIn())
+    {
+        localStorage.removeItem('jwt');
+    }
+}
 
 function login(username, password){
     return new Promise((resolve, reject) => {

@@ -73,10 +73,10 @@ export default {
   methods: {
     login(username, password){
       var self = this;
-
+      
       userService.login(username, password)
         .then(function(){
-          // TODO: redirect to Home
+          self.$router.push('home');
         })
         .catch(error => {
           self.loginForm.errorMessage = error;
@@ -102,6 +102,11 @@ export default {
         });
 
     }
+  },
+  mounted: function(){
+     if (userService.isLoggedIn()){
+       this.$router.push('home');
+     }
   }
 };
 </script>
