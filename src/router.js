@@ -1,18 +1,19 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
+// import Home from './views/Home.vue'
 import AddPerson from './views/AddPerson.vue'
 import Person from './views/Person.vue'
+import AddUser from './views/AddUser.vue'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: Home
-    },
+    // {
+    //   path: '/',
+    //   name: 'home',
+    //   component: Home
+    // },
     {
       path: '/AddPerson',
       name: 'add-person',
@@ -22,6 +23,12 @@ export default new Router({
       path: '/person/:id',
       name: 'person',
       component: Person
+    },
+    {
+      path: '/',
+      name: 'add-user',
+      component: AddUser
     }
+
   ]
 })

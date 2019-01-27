@@ -10,7 +10,7 @@ import Timeline from '../components/Timeline.vue'
 export default {
   name: 'Home',
   components: {
-    Timeline
+    Timeline,
   },
    computed: {
         // timeline() {
