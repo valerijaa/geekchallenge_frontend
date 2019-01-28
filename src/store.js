@@ -39,7 +39,15 @@ export const store = new Vuex.Store({
         },
         setTimeline(state,timeline) {
             state.timeline = timeline;
-        }
+        },
+
+        deletePerson(state, personId) {
+            state.people = state.people.filter(person => person._id !== personId);
+        },
+        deletePersonsPosts(state, personId) {
+            state.timeline = state.timeline.filter(post => post.person_id !== personId);
+        },
+
     },
     actions: {
         loadPeople(context){
@@ -81,6 +89,41 @@ export const store = new Vuex.Store({
                     // http success, call the mutator and change something in state
                     context.commit('addPerson', response.data);
                     resolve(response.data);  // Let the calling function know that http is done. You may send some data back
+                
+                }, error => {
+                    // http failed, let the calling function know that action did not work out
+                    reject(error);
+                })
+            });
+        },
+        deletePerson(context, personId){
+            return new Promise((resolve, reject) => {
+                // Do something here... lets say, a http call using vue-resource
+                axios.delete('http://localhost:3000/person?id='+personId, 
+                { 
+                    headers: { Authorization: userService.getProfile().token }
+                }).then(function() {
+                    // http success, call the mutator and change something in state
+                    context.commit('deletePerson', personId);
+                    resolve();  // Let the calling function know that http is done. You may send some data back
+                
+                }, error => {
+                    // http failed, let the calling function know that action did not work out
+                    reject(error);
+                })
+            });
+        },
+
+        deletePersonsPosts(context, personId){
+            return new Promise((resolve, reject) => {
+                // Do something here... lets say, a http call using vue-resource
+                axios.delete('http://localhost:3000/person-posts?id='+personId, 
+                { 
+                    headers: { Authorization: userService.getProfile().token }
+                }).then(function() {
+                    // http success, call the mutator and change something in state
+                    context.commit('deletePersonsPosts', personId);
+                    resolve();  // Let the calling function know that http is done. You may send some data back
                 
                 }, error => {
                     // http failed, let the calling function know that action did not work out
