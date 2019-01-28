@@ -2,16 +2,16 @@
 <div class="wrapper"> 
     <div class="back-home">
       <router-link class="home" to="/">moodyla</router-link> 
+          <button v-on:click="logout()">Logout</button>  
     </div>
 
     <div class="profile"> 
         <div class="photo"> </div>
         <div class="name"> 
-            <h1>Elgars Logins </h1>
-            <span> ello1445 </span>
+            <h1>{{profile.name}}</h1>
+            <span>{{profile.username}}</span>
         </div>
-       
-    </div>
+    </div>     
     <div class="people">
         <h1> People </h1>
         <div class="people-list"> 
@@ -27,10 +27,23 @@
 
 <script>
 import People from '../People';
+import { userService } from '../../services/UserService';
+
 export default {
     name: "SideBar",
     components: {
         People
+    },
+    computed: {
+        profile(){
+            return userService.getProfile();
+        }
+    },
+    methods: {
+        logout(){
+            userService.logout();
+            this.$router.push('login');
+        }
     }
 }
 </script>

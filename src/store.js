@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
+import { userService } from './services/UserService'
 
 Vue.use(Vuex);
 
@@ -42,7 +43,9 @@ export const store = new Vuex.Store({
     },
     actions: {
         loadPeople(context){
-            axios.get('http://localhost:3000/people')
+            axios.get('http://localhost:3000/people', { 
+                headers: { Authorization: userService.getProfile().token }
+            })
                 .then(response => {
                     context.commit('setPeople', response.data);
                 });
@@ -56,7 +59,11 @@ export const store = new Vuex.Store({
                 postsApiEndpoint = 'http://localhost:3000/posts';
             }
 
-            axios.get(postsApiEndpoint)
+            axios.get(postsApiEndpoint, 
+                    { 
+                        headers: { Authorization: userService.getProfile().token }
+                    }
+                )
                 .then(response => {
                     context.commit('setTimeline', response.data);
                 });
@@ -68,6 +75,8 @@ export const store = new Vuex.Store({
                     name: newPerson.name,
                     username: newPerson.username,
                     socialMedia: newPerson.socialMedia
+                }, { 
+                    headers: { Authorization: userService.getProfile().token }
                 }).then(response => {
                     // http success, call the mutator and change something in state
                     context.commit('addPerson', response.data);

@@ -4,21 +4,30 @@ export const userService = {
     login,
     register,
     logout,
-    isLoggedIn
+    isLoggedIn,
+    getProfile
 };
 
 function isLoggedIn(){
-    if (localStorage.getItem('jwt') === null) {
+    if (localStorage.getItem('user') === null) {
          return false;
     }
 
     return true;
 }
 
+function getProfile(){
+    if (!isLoggedIn())
+    {
+        return null;
+    }
+    return JSON.parse(localStorage.getItem('user'));
+}
+
 function logout(){
     if (isLoggedIn())
     {
-        localStorage.removeItem('jwt');
+        localStorage.removeItem('user');
     }
 }
 
@@ -30,7 +39,7 @@ function login(username, password){
                 password
             })
             .then(response => {
-                localStorage.setItem('jwt', response.data.token);
+                localStorage.setItem('user', JSON.stringify(response.data));
                 resolve();
             })
             .catch(error => {

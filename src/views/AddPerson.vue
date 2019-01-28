@@ -110,13 +110,15 @@ export default {
 
                 this.$store.dispatch('addPerson', newPerson)
                     .then(response => {
-                        /*   eslint-disable no-console */
-                        console.log(response._id);
-                        /* eslint-enable no-console */
                         this.name = '';
                         this.username = '';
                         this.socialNetwork = '';
                         this.submitStatus = 'OK';
+
+                        // TODO: change submitStaus to something else f.x. PREPARING
+                        // then using v-if or v-show hide form and show some loading text or animation
+                        // and here using axios call our backend endpoint for reload-person-tweets
+                        // .then() when response is back, use this.$router.push to redirect him to just created persons profile page, where tweets will be available.
 
                         this.$router.push({ name: 'person', params: { id: response._id} })
                     }, function() {
