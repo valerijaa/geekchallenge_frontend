@@ -5,7 +5,13 @@
     <div class="wrap" v-if="person">
         <div class="person-container">
           <div class="full-profile">
-            <img class="image">
+            <div class="image">
+               <avatar :username="person.name"
+                  background-color="rebeccapurple"
+                  color="#fff"
+                  :size="100">
+              </avatar>
+            </div>
             <div class="name">
               <h1>{{person.name}}</h1>
               <span>{{person.username}}</span>
@@ -17,18 +23,6 @@
               <img src="http://assets.stickpng.com/thumbs/5a2fe3efcc45e43754640848.png">
               <h3>@{{person.username}}</h3>
             </div>
-            <!-- <div class="socialmedia">
-              <img
-                src="https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-shapes-2-free/128/social-instagram-new-circle-512.png"
-              >
-              <h3>ello__</h3>
-            </div>
-            <div class="socialmedia">
-              <img
-                src="https://cdn4.iconfinder.com/data/icons/social-media-icons-the-circle-set/48/facebook_circle-512.png"
-              >
-              <h3>ello__</h3>
-            </div> -->
           </div>
         </div>
       </div>
@@ -39,11 +33,13 @@
 </template>
 
 <script>
+import Avatar from 'vue-avatar'
 import Timeline from '../components/Timeline.vue';
 export default {
   name: "Person",
   components: {
-    Timeline
+    Timeline,
+    Avatar
   },
   computed: {
     person() {
@@ -101,13 +97,6 @@ export default {
   align-items: center;
   justify-content: center;
   text-align: center;
-}
-
-.full-profile .image {
-   width: 100px;
-   height: 100px;
-   background-color: rebeccapurple;
-   border-radius: 50%;
 }
 
 .full-profile .name {
