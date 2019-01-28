@@ -27,6 +27,9 @@ export default {
     isLoggedIn(){
       return userService.isLoggedIn;
     }
+  },
+  created(){
+
   }
 }
 </script>
