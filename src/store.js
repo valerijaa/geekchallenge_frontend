@@ -51,7 +51,7 @@ export const store = new Vuex.Store({
     },
     actions: {
         loadPeople(context){
-            axios.get('http://localhost:3000/people', { 
+            axios.get(process.env.VUE_APP_ROOT_API+'/people', { 
                 headers: { Authorization: userService.getProfile().token }
             })
                 .then(response => {
@@ -61,10 +61,10 @@ export const store = new Vuex.Store({
         loadTimeline(context, personId){
             var postsApiEndpoint = '';
             if (personId){
-                postsApiEndpoint = 'http://localhost:3000/person-posts?id='+personId;
+                postsApiEndpoint = process.env.VUE_APP_ROOT_API+'/person-posts?id='+personId;
             }
             else{
-                postsApiEndpoint = 'http://localhost:3000/posts';
+                postsApiEndpoint = process.env.VUE_APP_ROOT_API+'/posts';
             }
 
             axios.get(postsApiEndpoint, 
@@ -79,7 +79,7 @@ export const store = new Vuex.Store({
         addPerson(context, newPerson){
             return new Promise((resolve, reject) => {
                 // Do something here... lets say, a http call using vue-resource
-                axios.post('http://localhost:3000/addperson', {
+                axios.post(process.env.VUE_APP_ROOT_API+'/addperson', {
                     name: newPerson.name,
                     username: newPerson.username,
                     socialMedia: newPerson.socialMedia
@@ -99,7 +99,7 @@ export const store = new Vuex.Store({
         deletePerson(context, personId){
             return new Promise((resolve, reject) => {
                 // Do something here... lets say, a http call using vue-resource
-                axios.delete('http://localhost:3000/person?id='+personId, 
+                axios.delete(process.env.VUE_APP_ROOT_API+'/person?id='+personId, 
                 { 
                     headers: { Authorization: userService.getProfile().token }
                 }).then(function() {
@@ -117,7 +117,7 @@ export const store = new Vuex.Store({
         deletePersonsPosts(context, personId){
             return new Promise((resolve, reject) => {
                 // Do something here... lets say, a http call using vue-resource
-                axios.delete('http://localhost:3000/person-posts?id='+personId, 
+                axios.delete(process.env.VUE_APP_ROOT_API+'/person-posts?id='+personId, 
                 { 
                     headers: { Authorization: userService.getProfile().token }
                 }).then(function() {

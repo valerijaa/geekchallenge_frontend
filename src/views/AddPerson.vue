@@ -126,7 +126,7 @@ export default {
                         self.submitStatus = 'PREPARING_TIMELINE';
 
                         // ensure persons latests posts are loaded
-                        axios.get('http://localhost:3000/reload-persons-posts?id='+response._id, { 
+                        axios.get(process.env.VUE_APP_ROOT_API+'/reload-persons-posts?id='+response._id, { 
                             headers: { Authorization: userService.getProfile().token }
                         })
                         .then(function() {

@@ -34,7 +34,7 @@ function logout(){
 function login(username, password){
     return new Promise((resolve, reject) => {
         axios
-            .post(`http://localhost:3000/login`, {
+            .post(process.env.VUE_APP_ROOT_API+`/login`, {
                 username,
                 password
             })
@@ -51,7 +51,7 @@ function login(username, password){
 function register(name, username, password){
     return new Promise((resolve, reject) => {
         axios
-            .post(`http://localhost:3000/register`, {
+            .post(process.env.VUE_APP_ROOT_API+`/register`, {
                 username,
                 password,
                 name
