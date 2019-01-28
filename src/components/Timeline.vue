@@ -6,8 +6,16 @@
           <div class="prof"> 
             <img class="pic" v-bind:src="post.photo"/>
              <div class="user">
-               <h1>{{post.display_name}}</h1>
-               <span>{{post.username}}</span>
+               <div class="username">
+            
+               <h1>{{post.display_name}}<span class="username">{{post.username}}</span> </h1>
+               </div>
+               <span class="date">{{post.created_at}}</span> 
+               
+       
+          
+                
+               
           </div>
   
           </div>
@@ -19,21 +27,21 @@
             <div class="mood-properties"> 
 
             <div class="feature"> 
-              <img src="https://vignette.wikia.nocookie.net/csydes-test/images/a/ac/Discord_Emoticon_Happy.png/revision/latest?cb=20180601003844">
+              <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/114/grinning-face-with-one-large-and-one-small-eye_1f92a.png">
               <h3> {{getPercentage(post.analysis_result.emotion.highest.score)}} % {{post.analysis_result.emotion.highest.tone_name}} </h3>
             </div>
 
              <div class="feature"> 
-              <img src="http://assets.stickpng.com/thumbs/586294c83796e30ac4468735.png">
+              <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/155/face-with-uneven-eyes-and-wavy-mouth_1f974.png">
               <h3>{{getPercentage(post.analysis_result.language.highest.score)}} % {{post.analysis_result.language.highest.tone_name}}</h3>
             </div>
 
              <div class="feature"> 
-              <img src="https://imagejournal.org/wp-content/uploads/2017/03/1f60b.png">
+              <img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/apple/155/hugging-face_1f917.png">
               <h3>{{getPercentage(post.analysis_result.social.highest.score)}} % {{post.analysis_result.social.highest.tone_name}}</h3>
             </div>
           </div>
-         <!-- <span class="date">{{post.created_at}}</span>  -->
+        
 
         <div class="expand-wrapper" v-bind:class="{'expanded':isCardExpanded(post._id)}">
         <label class="label-toggle" v-on:click="toggleVisibility(post._id)" >More Info</label>
@@ -171,14 +179,16 @@ export default {
 .prof .user {
   margin-left: 6%;
 }
-.prof span {
-  font-size: 16px;
+.prof span.username {
+  font-size: 18px;
   color: grey;
   font-weight: 500;
+  margin-left: 10px;
+ 
 }
 
 .prof h1 {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: bold;
   color: black;
   margin-bottom: 5px;
@@ -226,8 +236,8 @@ export default {
   margin-bottom: 2%;
 }
 .feature img {
-  width: 35px;
-  height:35px;
+  width: 45px;
+  height:45px;
 }
 
 .feature h3 {

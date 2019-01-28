@@ -2,15 +2,20 @@
 <div class="wrapper"> 
     <div class="back-home">
       <router-link class="home" to="/">moodyla</router-link> 
-          <button v-on:click="logout()">Logout</button>  
+   
     </div>
 
     <div class="profile"> 
-        <div class="photo"> </div>
-        <div class="name"> 
-            <h1>{{profile.name}}</h1>
-            <span>{{profile.username}}</span>
+        <div class="wrap-profile">
+            <div class="photo"> </div>
+            <div class="name"> 
+                <h1>{{profile.name}}</h1>
+                <span>{{profile.username}}</span>
+            </div>
         </div>
+    <div class="logout-button-wrap">
+    <button v-on:click="logout()">Logout</button>  
+    </div>
     </div>     
     <div class="people">
         <h1> People </h1>
@@ -55,13 +60,42 @@ export default {
         display: grid;
         grid-template-rows: 8% 20% 65% 7%;
     }
-    .profile {
+    .wrap-profile {
         border-bottom: 3px solid #fdfdfd;
         display:flex;
         justify-content: center;
         align-items: center;
+        width: 100%;
         
     }
+
+    .profile {
+        display:flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .logout-button-wrap {
+        width: 100%;
+    }
+    .logout-button-wrap button {
+        background-color:#73c2fb;
+        padding: 8px 16px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 12px;
+        border: 2px solid;
+        border-radius: 30px;
+        color: white;
+        float: right;
+        margin-top: 4%;
+        cursor: pointer;
+        margin-right: 20px;
+    }
+
+     .profile button:hover {
+         background-color: #57a0d2;
+     }
 
     .profile .photo {
         border-radius: 50%;
